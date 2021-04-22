@@ -16,8 +16,34 @@ setInterval(() => {
 }, 4000);
 
 class App extends Component {
+  state = {
+    comments: [...data],
+  };
+
+  getData = () => {
+    console.log(`aktualizacja`);
+    this.setState({
+      comments: [...data],
+    });
+  };
+
+  componentDidMount() {
+    this.intervalId = setInterval(this.getData, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
   render() {
-    return <div className="App">Działa</div>;
+    const comments = this.state.comments.map((comment) => (
+      <div key={comment.id}>
+        <h4>{comment.title}</h4>
+        <div>{comment.body}</div>
+      </div>
+    ));
+
+    return <div className="App">{comments.reverse()}</div>;
   }
 }
 
