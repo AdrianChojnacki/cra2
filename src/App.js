@@ -21,10 +21,14 @@ class App extends Component {
   };
 
   getData = () => {
-    console.log(`aktualizacja`);
-    this.setState({
-      comments: [...data],
-    });
+    if (this.state.comments.length !== data.length) {
+      console.log(`aktualizacja`);
+      this.setState({
+        comments: [...data],
+      });
+    } else {
+      console.log(`dane takie same - brak aktualizacji`);
+    }
   };
 
   componentDidMount() {
